@@ -114,3 +114,14 @@ Here are some things I'd like to play with in this project:
 * Spawn multiple nodes and distribute computations across an LFE cluster.
 * Use ``lfecljapp`` as a proxy to a Storm cluster, and explores ways in which
   it might be useful to interact with Storm from LFE.
+
+Here are some more... not for the squeamish or those with heart conditions.
+Also, I'm cackling (very quietly) to myself as I type this:
+
+* Add an LFE macro that defines/generates custom functions/boilerplate for the
+  code that is in ``lfecljapp.lfe`` but for any basic operation/communication
+  that you may want to have with your Clojure process. 
+* Add a *Clojure* macro that defines/generates the code on the Clojure side of
+  the house for communicating with Erlang processes.
+
+
