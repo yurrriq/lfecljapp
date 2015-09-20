@@ -120,7 +120,7 @@ Also, I'm cackling (very quietly) to myself as I type this:
 
 * Add an LFE macro that defines/generates custom functions/boilerplate for the
   code that is in ``lfecljapp.lfe`` but for any basic operation/communication
-  that you may want to have with your Clojure process. 
+  that you may want to have with your Clojure process.
 * Add a *Clojure* macro that defines/generates the code on the Clojure side of
   the house for communicating with Erlang processes.
 
