@@ -11,23 +11,24 @@
   (:gen-class))
 
 (defn handle-ping
-    [msg mbox]
-    (log/info (format "Handling %s ..." msg))
-    (.send mbox (.elementAt ^OtpErlangTuple msg 1)
-        (new OtpErlangTuple
-            (into-array OtpErlangObject [(new OtpErlangAtom "pong") (.self mbox)]))))
+  [msg mbox]
+  (log/info (format "Handling %s ..." msg))
+  (->> [(OtpErlangAtom. "pong") (.self mbox)]
+       (into-array OtpErlangObject)
+       (new OtpErlangTuple)
+       (.send mbox (.elementAt ^OtpErlangTuple msg 1))))
 
 (defn link-to-erl
-    [dpid mbox]
-    (.link mbox dpid)
-    (log/info (format "Linked with Erlang %s" dpid)))
+  [dpid mbox]
+  (.link mbox dpid)
+  (log/info (format "Linked with Erlang %s" dpid)))
 
 (defn check-erl-node
-    [mbox timeout]
-    (def msgObj (.receive mbox timeout))
-    (def cmd (.elementAt msgObj 0))
-    (def dpid (.elementAt msgObj 1))
+  [mbox timeout]
+  (let [msg-obj (.receive mbox timeout)
+        cmd     (.elementAt msg-obj 0)
+        dpid    (.elementAt msg-obj 1)]
     (if (= (.atomValue cmd) "ping")
-        (link-to-erl dpid mbox)
-        (new Exception "First message should be ping"))
-    (log/info "erlang node checked"))
+      (link-to-erl dpid mbox)
+      (Exception. "First message should be ping")))
+  (log/info "erlang node checked"))

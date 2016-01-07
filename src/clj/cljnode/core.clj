@@ -8,11 +8,11 @@
   (:gen-class))
 
 (defn -main
-    [& args]
-    (log/info "Starting Clojure node ...")
-    (cljnode/server
-        (System/getProperty "node")
-        (System/getProperty "mbox")
-        (System/getProperty "cookie")
-        (read-string (System/getProperty "epmd_port")))
-    (log/info "Stopping Clojure node ..."))
+  [& args]
+  (log/info "Starting Clojure node ...")
+  (cljnode/server
+   (System/getProperty "node")
+   (System/getProperty "mbox")
+   (System/getProperty "cookie")
+   (read-string (System/getProperty "epmd_port")))
+  (log/info "Stopping Clojure node ..."))
