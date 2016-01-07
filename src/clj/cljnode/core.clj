@@ -1,10 +1,11 @@
 (ns cljnode.core
-    #^{:authors ["Maxim Molchanov <elzor.job@gmail.com>",
-                 "Duncan McGreggor <oubiwann@gmail.com>"],
-       :doc "Node run point"}
-    (:require [clojure.tools.logging :as log]
-              [cljnode.server :as cljnode])
-    (:gen-class))
+  "Node run point"
+  {:authors ["Maxim Molchanov <elzor.job@gmail.com>"
+             "Duncan McGreggor <oubiwann@gmail.com>"
+             "Eric Bailey <eric@ericb.me>"]}
+  (:require [clojure.tools.logging :as log]
+            [cljnode.server :as cljnode])
+  (:gen-class))
 
 (defn -main
     [& args]

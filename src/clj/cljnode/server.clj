@@ -1,13 +1,14 @@
 (ns cljnode.server
-    #^{:authors ["Maxim Molchanov <elzor.job@gmail.com>",
-                 "Duncan McGreggor <oubiwann@gmail.com>"],
-       :doc "Main server class"}
-    (:require [clojure.tools.logging :as log]
-              [cljnode.proto :as proto])
-    (:import [com.ericsson.otp.erlang
-              OtpErlangTuple
-              OtpNode])
-    (:gen-class))
+  "Main server class"
+  {:authors ["Maxim Molchanov <elzor.job@gmail.com>"
+             "Duncan McGreggor <oubiwann@gmail.com>"
+             "Eric Bailey <eric@ericb.me>"]}
+  (:require [clojure.tools.logging :as log]
+            [cljnode.proto :as proto])
+  (:import [com.ericsson.otp.erlang
+            OtpErlangTuple
+            OtpNode])
+  (:gen-class))
 
 (defn process
     [msg mbox]

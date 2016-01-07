@@ -1,13 +1,14 @@
 (ns cljnode.proto
-    #^{:authors ["Maxim Molchanov <elzor.job@gmail.com>",
-                 "Duncan McGreggor <oubiwann@gmail.com>"],
-       :doc "Protocol handler class"}
-    (:require [clojure.tools.logging :as log])
-    (:import [com.ericsson.otp.erlang
-              OtpErlangAtom
-              OtpErlangTuple
-              OtpErlangObject])
-    (:gen-class))
+  "Protocol handler class"
+  {:authors ["Maxim Molchanov <elzor.job@gmail.com>"
+             "Duncan McGreggor <oubiwann@gmail.com>"
+             "Eric Bailey <eric@ericb.me>"]}
+  (:require [clojure.tools.logging :as log])
+  (:import [com.ericsson.otp.erlang
+            OtpErlangAtom
+            OtpErlangTuple
+            OtpErlangObject])
+  (:gen-class))
 
 (defn handle-ping
     [msg mbox]
