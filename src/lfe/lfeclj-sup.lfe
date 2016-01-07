@@ -5,22 +5,28 @@
   ;; Supervisor callbacks
   (export (init 1)))
 
-(defun server-name ()
-  'lfeclj-sup)
+(defun SERVER () (MODULE))
 
-(defun start_link ()
-  (supervisor:start_link
-    (tuple 'local (server-name)) (MODULE) '()))
+
+;;;===================================================================
+;;; API
+;;;===================================================================
+
+(defun start_link () (supervisor:start_link `#(local ,(SERVER)) (MODULE) []))
+
+
+;;;===================================================================
+;;; Supervisor callbacks
+;;;===================================================================
 
 (defun init (args)
-  (let* ((server (tuple
-                   'lfecljapp
-                   (tuple 'lfecljapp 'start_link '())
-                   'permanent
-                   5000
-                   'worker
-                   (list 'lfecljapp)
-                   ))
-         (children (list server))
-         (restart-strategy (tuple 'one_for_one 5 10)))
-    (tuple 'ok (tuple restart-strategy children))))
+  (let ((server    '#m(id       lfeclj-server
+                       start    #(lfeclj-server start_link [])
+                       restart  permanent
+                       shutdown 5000
+                       type     worker
+                       modules  [lfeclj-server]))
+        (sup-flags '#m(strategy  one_for_one
+                       intensity 5
+                       period    10)))
+    `#(ok #(,sup-flags [,server]))))

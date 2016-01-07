@@ -7,17 +7,13 @@
 (defun start ()
   (logjam:start)
   (logjam:set-level 'lager_console_backend
-                    (lcfg:get-in (lcfg-file:read-local) '(logging log-level)))
-  (application:load 'lfecljapp)
+    (lcfg:get-in (lcfg-file:read-local) '[logging log-level]))
   (application:start 'lfecljapp))
 
 (defun start (type args)
   (let ((result (lfeclj-sup:start_link)))
     (case result
-      ((tuple 'ok pid)
-        result)
-      (_
-        (tuple 'error result)))))
+      (`#(ok ,_pid) result)
+      (_            `#(error ,result)))))
 
-(defun stop (state)
-  'ok)
+(defun stop (state) 'ok)
