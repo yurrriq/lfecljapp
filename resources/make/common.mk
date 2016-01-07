@@ -2,7 +2,6 @@ PROJECT = lfecljapp
 LIB = $(PROJECT)
 DEPS = ./deps
 BIN_DIR = ./bin
-EXPM = $(BIN_DIR)/expm
 LFETOOL=$(BIN_DIR)/lfetool
 SOURCE_DIR = ./src
 OUT_DIR = ./ebin
@@ -23,14 +22,9 @@ $(LFETOOL): $(BIN_DIR)
 get-version:
 	@PATH=$(SCRIPT_PATH) lfetool info version
 
-$(EXPM): $(BIN_DIR)
-	@[ -f $(EXPM) ] || \
-	PATH=$(SCRIPT_PATH) lfetool install expm $(BIN_DIR)
-
 get-deps:
 	@echo "Getting dependencies ..."
 	@which rebar.cmd >/dev/null 2>&1 && rebar.cmd get-deps || rebar get-deps
-	@PATH=$(SCRIPT_PATH) lfetool update deps
 
 clean-ebin:
 	@echo "Cleaning ebin dir ..."
@@ -74,14 +68,3 @@ push-all:
 install: compile
 	@echo "Installing lfecljapp ..."
 	@PATH=$(SCRIPT_PATH) lfetool install lfe
-
-upload: $(EXPM) get-version
-	@echo "Preparing to upload lfecljapp ..."
-	@echo
-	@echo "Package file:"
-	@echo
-	@cat package.exs
-	@echo
-	@echo "Continue with upload? "
-	@read
-	$(EXPM) publish

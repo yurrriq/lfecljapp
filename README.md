@@ -56,7 +56,8 @@ $ make repl
 ok
 ```
 
-Or, you can just use the ``dev`` make target:
+Alternatively, you can use the ``dev`` make target which will start the
+lfecljapp for you automatically:
 
 ```bash
 $ make dev
@@ -65,16 +66,17 @@ $ make dev
 Once the app has started, you will see output like the following (elided):
 
 ```
-(lfenode@cahwsx01)> lfecljapp.lfe:187:<0.44.0>:...
-INFO: Starting clojure app with cmd "java -Dnode=...
+(lfenode@cahwsx01)>
+14:03:52.849 [info] Application lager started on node lfenode@cahwsx01
+14:03:52.855 [info] Starting clojure app with cmd: "java ..."
 ```
 
 At this point, you are in the shell, and before too long you should also see
 a log message display showing the successful start of the Clojure node:
 
 ```
-(lfenode@cahwsx01)> lfecljapp.lfe:118:<0.42.0>:...
-INFO: Connection to java node established, pid: <6709.1.0>
+14:03:52.856 [info] Application lfecljapp started on node lfenode@cahwsx01
+14:03:55.898 [info] Connection to java node established, pid: <11113.1.0>
 ```
 
 ## Using
@@ -84,7 +86,7 @@ spin with a ping command:
 
 ```cl
 (lfenode@cahwsx01)> (lfecljapp:ping "clj-node@cahwsx01" "clj-mbox")
-#(ping <0.32.0>)
+#(ping <0.83.0>)
 ```
 
 The node name used in the example above was taken from the output when the
@@ -92,11 +94,13 @@ Clojure node was started up. In particular, look for the line beginning with
 ``INFO: Starting clojure app ...`` and the value associated with the ``-Dnode``
 parameter. That's your destination node in this case.
 
-To see the response from the Clojure node, you'll need to flush the shell:
+To see the response from the Clojure node, you'll need to flush the shell,
+since the Clojure port sends its responses to the caller, and in this case the
+caller is the LFE REPL:
 
 ```cl
 (lfenode@cahwsx01)> (c:flush)
-Shell got {pong,<6709.1.0>}
+Shell got {pong,<11113.1.0>}
 ok
 ```
 
@@ -116,7 +120,7 @@ Also, I'm cackling (very quietly) to myself as I type this:
 
 * Add an LFE macro that defines/generates custom functions/boilerplate for the
   code that is in ``lfecljapp.lfe`` but for any basic operation/communication
-  that you may want to have with your Clojure process. 
+  that you may want to have with your Clojure process.
 * Add a *Clojure* macro that defines/generates the code on the Clojure side of
   the house for communicating with Erlang processes.
 
